@@ -1,5 +1,4 @@
-## Banking API Challenge
----
+# Banking API Challenge
 ### Set up and run the app
 ---
 
