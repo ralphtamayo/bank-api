@@ -13,7 +13,9 @@ initRoutes(app);
 // Connect to the database
 connectDB();
 
-// Server the app
+// Serve the app
 app.listen(3000, () => {
 	console.log('Server is listening on port 3000');
-})
+});
+
+export default app;

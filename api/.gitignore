@@ -4,3 +4,6 @@
 # environments
 .env
 !.env.sample
+
+# logs
+yarn-error.log

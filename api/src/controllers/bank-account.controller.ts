@@ -1,7 +1,5 @@
 import { Router, Request, Response } from 'express';
 import { validateId } from '../middleware/validate-id';
-import { Customer } from '../models/customer.model';
-import { FormUtils } from '../utils/form-utils';
 import { CustomResponse } from '../utils/custom-response';
 import { BankAccount } from '../models/bank-account.model';
 
