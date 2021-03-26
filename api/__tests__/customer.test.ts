@@ -81,6 +81,8 @@ it("should update a customer", async done => {
 it("should create a new bank account for a customer", async done => {
 	const customer = await Customer.findOne({ firstName: updatedCustomer.firstName });
 
+	expect(customer).not.toBeNull();
+
 	let res = await req.post(`/api/customer/${ customer!.id }/bank-account/new`).send(newBankAccount);
 
 	expect(res.status).toBe(201);
