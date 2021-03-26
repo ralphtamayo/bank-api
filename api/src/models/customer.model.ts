@@ -1,4 +1,5 @@
 import { Document, Schema, Model, model } from 'mongoose';
+import { IBankAccount } from './bank-account.model';
 
 /**
  * Customer Interface
@@ -6,6 +7,7 @@ import { Document, Schema, Model, model } from 'mongoose';
 export interface ICustomer extends Document {
 	firstName: string;
 	lastName: string;
+	bankAccounts: Array<IBankAccount>;
 }
 
 /**
@@ -20,10 +22,14 @@ const CustomerSchema = new Schema({
 	},
 	lastName: {
 		type: String,
-		required: [true, 'Last name must not be blank.'],
+		required: true,
 		minLength: 2,
 		maxLength: 50
 	},
+	bankAccounts: [{
+		type: Schema.Types.ObjectId,
+		ref: "BankAccount"
+	}]
 });
 
 export const Customer: Model<ICustomer> = model('Customer', CustomerSchema);

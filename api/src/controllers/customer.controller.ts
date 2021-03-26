@@ -41,7 +41,7 @@ router.post('/new', async (req: Request, res: Response) => {
  * GET /api/customer/:id
  */
 router.get('/:id', validateId, async (req: Request, res: Response) => {
-	const customer = await Customer.findById(req.params.id).select('firstName lastName');
+	const customer = await Customer.findById(req.params.id).select('firstName lastName').populate('bankAccounts');
 
 	if (customer == null) {
 		return res.status(404).send(CustomResponse.createEntityNotFoundError());
@@ -103,7 +103,10 @@ router.post('/:id/bank-account/new', validateId, async (req: Request, res: Respo
 	}
 
 	const bankAccount = new BankAccount({ customer: customer.id, balance: req.body.balance });
-	await bankAccount.save();
+	await bankAccount.save().then(_ => {
+		customer.bankAccounts.push(bankAccount);
+		customer.save();
+	});
 
 	return res.status(201).send(bankAccount);
 });
