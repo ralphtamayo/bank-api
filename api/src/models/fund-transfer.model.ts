@@ -1,5 +1,4 @@
 import { Document, Schema, Model, model } from 'mongoose';
-import { IBankAccount } from './bank-account.model';
 
 /**
  * Fund Transfer Interface
@@ -8,6 +7,7 @@ export interface IFundTransfer extends Document {
 	from: string;
 	to: string;
 	amount: number;
+	dateTransferred: Date;
 }
 
 /**
@@ -29,6 +29,10 @@ const FundTransferSchema = new Schema({
 		required: true,
 		min: 10
 	},
+	dateTransferred: {
+		type: Date,
+		default: new Date(),
+	}
 });
 
 export const FundTransfer: Model<IFundTransfer> = model('FundTransfer', FundTransferSchema);
