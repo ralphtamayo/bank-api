@@ -14,16 +14,16 @@ export interface ICustomer extends Document {
 const CustomerSchema = new Schema({
 	firstName: {
 		type: String,
-		required: [true, 'First name must not be blank.'],
-		minLength: [2, 'First name cannot be less than 2 characters.'],
-		maxLength: [50, 'First name cannot be more than 50 characters.']
+		required: true,
+		minLength: 2,
+		maxLength: 50
 	},
 	lastName: {
 		type: String,
 		required: [true, 'Last name must not be blank.'],
-		minLength: [2, 'Last name cannot be less than 2 characters.'],
-		maxLength: [50, 'Last name cannot be more than 50 characters.']
-	}
+		minLength: 2,
+		maxLength: 50
+	},
 });
 
 export const Customer: Model<ICustomer> = model('Customer', CustomerSchema);
