@@ -1,25 +1,13 @@
-import { Error, Document } from 'mongoose';
+import { ValidationError } from 'joi';
 
 export interface FormErrors { [key: string]: string }
 
 export class FormUtils {
-	static validateForm(entity: Document): FormErrors | null{
-		const error = entity.validateSync();
+	static flattenErrors(formErrors: ValidationError ) {
+		const errors: { [property: string]: string } = {};
 
-		if (!(error instanceof Error.ValidationError)) {
-			return null;
-		}
-
-		let errors = this.buildErrors(error);
-
-		return errors;
-	}
-
-	static buildErrors(formError: Error.ValidationError): FormErrors {
-		let errors: FormErrors = {};
-
-		Object.keys(formError.errors).forEach((key) => {
-			errors[key] = formError.errors[key].message;
+		formErrors.details.forEach(error => {
+			errors[error.path[0]] = error.message;
 		});
 
 		return errors;
